@@ -37,6 +37,28 @@ app.get("/videos/:id", async (req, res) => {
   res.send(video);
 });
 
+//post single video into db==========
+app.post("/videos", async (req, res) => {
+  const body = req.body;
+  const postedVideo = await Videos.create(body);
+  res.send(postedVideo);
+});
+
+//delete single video from db========
+app.delete("/videos/:id", async (req, res) => {
+  const id = req.params.id;
+  const deletedVideo = await Videos.findByIdAndDelete(id);
+  res.send(deletedVideo);
+});
+//update single video into db=========
+app.patch("/videos/:id", async (req, res) => {
+  const id = req.params.id;
+  const body = req.body;
+  const filter = { _id: id };
+  const updatedVideo = await Videos.findOneAndUpdate(filter, body);
+  res.send(updatedVideo);
+});
+
 //set up and connect server
 app.get("/", (req, res) => {
   res.send("Hello video application server server!");
