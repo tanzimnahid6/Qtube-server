@@ -22,23 +22,22 @@ mongoose
     console.error("Error connecting to MongoDB:", error);
   });
 
-  const Videos = require('./model/videoModel')
+const Videos = require("./model/videoModel");
 
 //get all videos from db==============
 app.get("/videos", async (req, res) => {
-    const videos = await Videos.find({});
-    res.send(videos);
-  });
+  const videos = await Videos.find({});
+  res.send(videos);
+});
 
+//get single videos from db===========
+app.get("/videos/:id", async (req, res) => {
+  id = req.params.id;
+  const video = await Videos.findOne({ _id: id }).exec();
+  res.send(video);
+});
 
-
-
-
-
-
-
-
-  //set up and connect server
+//set up and connect server
 app.get("/", (req, res) => {
   res.send("Hello video application server server!");
 });
