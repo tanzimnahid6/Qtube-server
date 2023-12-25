@@ -51,7 +51,7 @@ app.delete("/videos/:id", async (req, res) => {
   res.send(deletedVideo);
 });
 //update single video into db=========
-app.patch("/videos/:id", async (req, res) => {
+app.patch("/videos/edit/:id", async (req, res) => {
   const id = req.params.id;
   const body = req.body;
   const filter = { _id: id };
