@@ -34,6 +34,9 @@ const videoSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  like:{
+    type: String,
+  }
 });
 
 // Create model

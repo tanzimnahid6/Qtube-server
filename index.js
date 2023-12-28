@@ -23,6 +23,7 @@ mongoose
   });
 
 const Videos = require("./model/videoModel");
+const User = require("./model/userModel");
 
 //get all videos from db==============
 app.get("/videos", async (req, res) => {
@@ -33,7 +34,7 @@ app.get("/videos", async (req, res) => {
 //get single videos from db===========
 app.get("/videos/:id", async (req, res) => {
   id = req.params.id;
-  const video = await Videos.findOne({ _id: id }).exec();
+  const video = await Videos.findOne({ _id: id });
   res.send(video);
 });
 
@@ -57,6 +58,16 @@ app.patch("/videos/edit/:id", async (req, res) => {
   const filter = { _id: id };
   const updatedVideo = await Videos.findOneAndUpdate(filter, body);
   res.send(updatedVideo);
+});
+//======================================User==========================================
+app.get("/users", async (req, res) => {
+  const users = await User.find({});
+  res.send(users);
+});
+app.post("/users", async (req, res) => {
+  const body = req.body;
+  const postedUser = await User.create(body);
+  res.send(postedUser);
 });
 
 //set up and connect server
