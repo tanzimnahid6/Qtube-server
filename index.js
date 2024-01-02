@@ -24,6 +24,9 @@ mongoose
 
 const Videos = require("./model/videoModel");
 const User = require("./model/userModel");
+const Like = require("./model/likeModel");
+const Video = require("./model/videoModel");
+
 
 //get all videos from db==============
 app.get("/videos", async (req, res) => {
@@ -69,6 +72,23 @@ app.post("/users", async (req, res) => {
   const postedUser = await User.create(body);
   res.send(postedUser);
 });
+//========================================like========================================
+app.get("/likes",async (req,res)=>{
+  const likes = await Like.find({})
+  res.send(likes)
+})
+app.post("/likes",async (req,res)=>{
+  const body = req.body 
+  const postLike = await Like.create(body)
+  res.send(postLike)
+})
+app.patch("/likes/:id",async (req,res)=>{
+  const id = req.params.id;
+  const body = req.body;
+  const filter = { _id: id };
+  const updateLike = await Video.findOneAndUpdate(filter,body)
+  res.send(updateLike)
+})
 
 //set up and connect server
 app.get("/", (req, res) => {
